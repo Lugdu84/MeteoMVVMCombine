@@ -10,7 +10,7 @@ import Combine
 
 class WeatherAPI: WeatherProtocol, ObservableObject {
     
-    private var key = "c739bc84e0293fad295e4280289bda68"
+    private var key = "key api"
     private var session = URLSession.shared
     
     func getWeather(userLocation: UserLocation) -> AnyPublisher<WeatherResponse, WeatherIssue> {
