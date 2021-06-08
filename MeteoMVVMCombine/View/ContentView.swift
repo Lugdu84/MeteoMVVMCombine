@@ -30,6 +30,7 @@ struct ContentView: View {
                                 location.convertAddress(address: text)
                             }, label: {
                                 Image(systemName: "paperplane.fill")
+                                    .foregroundColor(.green)
                             })
                         })
                         Section(header: Text("Prévisions"), content: {
