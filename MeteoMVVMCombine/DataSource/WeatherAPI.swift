@@ -10,7 +10,6 @@ import Combine
 
 class WeatherAPI: WeatherProtocol, ObservableObject {
     
-    private var key = "key api"
     private var session = URLSession.shared
     
     func getWeather(userLocation: UserLocation) -> AnyPublisher<WeatherResponse, WeatherIssue> {
@@ -54,9 +53,17 @@ class WeatherAPI: WeatherProtocol, ObservableObject {
             URLQueryItem(name: "mode", value: "json"),
             URLQueryItem(name: "units", value: "metric"),
             URLQueryItem(name: "lang", value: "fr"),
-            URLQueryItem(name: "appid", value: key)
+            URLQueryItem(name: "appid", value: valueForAPIKey())
         ]
         
         return urlComponents
+    }
+    
+    func valueForAPIKey() -> String {
+        let filePath = Bundle.main.path(forResource: "ApiKeys", ofType: "plist")
+        let plist = NSDictionary(contentsOfFile: filePath!)
+        let value = plist?.object(forKey: "API_OpenWeathermap") as! String
+        
+        return value
     }
 }
