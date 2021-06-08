@@ -46,7 +46,8 @@ class WeatherViewModel: Identifiable {
     var dateString: String {
         let formatter = DateFormatter()
         let date = Date(timeIntervalSince1970: timestamp)
-        formatter.dateStyle = .short
+        formatter.locale = Locale(identifier: "fr_FR")
+        formatter.dateStyle = .medium
         formatter.timeStyle = .short
         return formatter.string(from: date)
     }
