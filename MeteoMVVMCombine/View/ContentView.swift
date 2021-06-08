@@ -28,6 +28,7 @@ struct ContentView: View {
                             TextField("Ajoutez une ville", text: $text)
                             Button(action: {
                                 location.convertAddress(address: text)
+                                UIApplication.shared.endEditing()
                             }, label: {
                                 Image(systemName: "paperplane.fill")
                                     .foregroundColor(.green)
