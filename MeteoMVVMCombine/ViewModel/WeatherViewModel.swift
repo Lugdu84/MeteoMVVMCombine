@@ -10,9 +10,12 @@ import Foundation
 class WeatherViewModel: Identifiable {
     var id = UUID()
     private let weather:Forecast
+    var calendar = Calendar.current
+    
     
     init(weather: Forecast) {
         self.weather = weather
+        calendar.locale = Locale(identifier: "fr_FR")
     }
     
     var timestamp: TimeInterval {
@@ -46,10 +49,30 @@ class WeatherViewModel: Identifiable {
     var dateString: String {
         let formatter = DateFormatter()
         let date = Date(timeIntervalSince1970: timestamp)
-        formatter.locale = Locale(identifier: "fr_FR")
         formatter.dateStyle = .medium
+        var day = formatter.string(from: date)
+        if isToday(date: date) {
+            day = "Aujourd'hui "
+        } else if isTomorrow(date: date) {
+            day = "Demain "
+        }
+        return day
+    }
+    
+    var heureString: String {
+        let formatter = DateFormatter()
+        let heure = Date(timeIntervalSince1970: timestamp)
+        formatter.dateStyle = .none
         formatter.timeStyle = .short
-        return formatter.string(from: date)
+        return formatter.string(from: heure)
+    }
+    
+    func isToday(date: Date) -> Bool {
+        return calendar.isDateInToday(date)
+    }
+    
+    func isTomorrow(date: Date) -> Bool {
+        return calendar.isDateInTomorrow(date)
     }
 }
 

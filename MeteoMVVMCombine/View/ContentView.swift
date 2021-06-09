@@ -19,7 +19,8 @@ struct ContentView: View {
         } else {
             GeometryReader { geo in
                 NavigationView {
-                    VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: /*@START_MENU_TOKEN@*/nil/*@END_MENU_TOKEN@*/, content: {
+                    
+                    List {
                         TopView( weather: weatherList.weatherList.first, region: .constant(location.setRegion(user: location.userLocation!)), width: geo.size.width, smallMap: $bool)
                             .onTapGesture {
                                 self.bool.toggle()
@@ -34,23 +35,20 @@ struct ContentView: View {
                                     .foregroundColor(.green)
                             })
                         })
-                        List {
-                            
-                            Section(header: Text("Prévisions"), content: {
-                                ForEach(weatherList.weatherList) { weatherVM in
-                                    WeatherListView(weather: weatherVM)
-                                }
-                            })
-                            
-                        }
-                        .animation(.linear)
-                        .navigationTitle(location.userLocation!.city)
-                        .navigationBarItems(trailing: Button(action: {
-                            location.toggleLcation()
-                        }, label: {
-                            Image(systemName: (location.showLocation) ? "location.fill" : "location.slash.fill")
-                        }))
-                    })
+                        Section(header: Text("Prévisions"), content: {
+                            ForEach(weatherList.weatherList) { weatherVM in
+                                WeatherListView(weather: weatherVM)
+                            }
+                        })
+                        
+                    }
+                    .animation(.linear)
+                    .navigationTitle(location.userLocation!.city)
+                    .navigationBarItems(trailing: Button(action: {
+                        location.toggleLcation()
+                    }, label: {
+                        Image(systemName: (location.showLocation) ? "location.fill" : "location.slash.fill")
+                    }))
                     
                 }
                 .onAppear() {

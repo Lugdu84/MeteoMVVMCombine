@@ -29,6 +29,9 @@ struct WeatherListView: View {
                 Text(weather.dateString)
                     .font(.callout)
                     .foregroundColor(.green)
+                Text(weather.heureString)
+                    .font(.callout)
+                    .foregroundColor(.green)
             })
             
             
